@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #636363a2;
+    /*background-image: url("background.png");*/
+  }
+  
+  .apple-music-icon {
+    position: relative;
+    top: 14%;
+    right: 32%;
+  }
+  
+  .apple-music-icon img {
+    width: 53px;
+    filter: invert(81%) sepia(0%) saturate(66%) hue-rotate(310deg) brightness(97%) contrast(99%);
+  }
+  
+  
+  .container {
+    margin: 0 auto;
+    color: #ffffff;
+  }
+  
+  .h1 .h2 h3 h4 {
+    margin: 0;
+    float: left;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #result {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .story-container {
+    background-color: #ffffff;
+    border-radius: 16px;
+    display: inline-block;
+    position: relative;
+    width:250px;
+    height: 300px;
+    max-height: 330px;
+  }
+  
+  #album-art {
+    margin: 1.6vh 1vh 0.5vh 1vh;
+    width: 215px;
+    height: 215px;
+    border-radius: 8px;
+  }
+  
+  .song-info {
+    position: absolute;
+    left:2.3vh
+  }
+  
+  #song-name,
+  #artist-name {
+    position: relative;
+    margin: 0;
+    color: #000000;
+    white-space:nowrap;
+    overflow:inherit;
+    max-width: 135px;
+    font-size: medium;
+    text-align: left;
+  }
+  
+  #artist-name {
+    font-weight: lighter;
+  }
+  
+  #modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  #search-results img {
+    width: 100px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  
+  #search-btn {
+    float:right;
+    right: 5%;
+    width: 50px;
+    height: auto;
+    background-color:transparent;
+    border: none;
+    position: fixed;
+    
+  }
+
