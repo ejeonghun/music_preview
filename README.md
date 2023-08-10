@@ -1,5 +1,7 @@
 # Music Preview 앱
 [Go to site](https://ejeonghun.github.io/music_preview).
+
+
 Music Preview 앱은 iTunes API를 이용해 사용자가 원하는 곡을 검색하고 간단한 미리듣기 기능을 제공합니다. 앨범 아트와 아티스트명, 곡 제목을 확인할 수 있을 뿐만 아니라, 선택한 곡을 직접 Apple Music에서 들을 수 있는 링크를 제공합니다.
 
 ## 주요 기능
