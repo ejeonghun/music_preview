@@ -13,10 +13,25 @@ document.getElementById('search-submit').addEventListener('click', function() {
 
 function selectArtwork(src, song, artist, trackViewUrl) {
   document.getElementById('album-art').src = src;
-  document.getElementById('song-name').innerText = song;
-  document.getElementById('artist-name').innerText = artist;
+  
+  const songNameElement = document.getElementById('song-name');
+  songNameElement.innerText = song;
+  
+  const artistNameElement = document.getElementById('artist-name');
+  artistNameElement.innerText = artist;
+
+  // 길이가 15자를 초과한 경우 폰트 크기 조정 및 텍스트 다음 줄로 이동
+  [songNameElement, artistNameElement].forEach((element) => {
+    if (element.innerText.length > 15) {
+      element.style.fontSize = '11px';
+      element.style.whiteSpace = 'pre-wrap';
+      element.style.wordWrap = 'break-word';
+    } else {
+      element.style.fontSize = 'initial';
+      element.style.whiteSpace = 'nowrap';
+    }
+  });
   document.getElementById('modal').classList.add('hidden');
-  const body = document.querySelectorAll('body');
   let styleTag = document.createElement("style");
   styleTag.innerHTML = `
     body::before {
@@ -39,7 +54,7 @@ function selectArtwork(src, song, artist, trackViewUrl) {
 /*const LAST_FM_API_KEY = '';*/
 
 async function searchApi(query) {
-  const itunesUrl = `https://itunes.apple.com/search?term=${query}&media=music&entity=song&limit=10`;
+  const itunesUrl = `https://itunes.apple.com/search?term=${query}&media=music&entity=song&limit=50`;
 
   try {
     const itunesResponse = await fetch(itunesUrl);
@@ -65,20 +80,41 @@ async function displayArtworks(query) {
   const resultsContainer = document.getElementById('search-results');
 
   resultsContainer.innerHTML = '';
-
   itunes.results.forEach((song) => {
+    const container = document.createElement('div');
+    container.classList.add('search-results');
+    container.style.textAlign = 'center';
+    container.style.marginBottom = '10px';
+
     const img = document.createElement('img');
     img.src = song.artworkUrl100.replace("100x100", "1400x1400");
     img.dataset.previewUrl = song.previewUrl;
+    img.style.cursor = 'pointer';
     img.addEventListener('click', () => {
       audioPlayer.pause();
       audioPlayer.currentTime = 0;
       audioPlayer.src = song.previewUrl;
       audioPlayer.play();
       selectArtwork(img.src, song.trackName, song.artistName, song.trackViewUrl);
-    });
+      });
 
-    resultsContainer.appendChild(img);
+    const songTitle = document.createElement('span');
+    songTitle.innerText = song.trackName;
+    songTitle.style.display = 'block';
+    songTitle.style.fontWeight = 'bold';
+    songTitle.style.fontSize = '14px';
+    songTitle.style.marginTop = '5px';
+
+    const artistName = document.createElement('span');
+    artistName.innerText = song.artistName;
+    artistName.style.display = 'block';
+    artistName.style.fontSize = '14px';
+
+    container.appendChild(img);
+    container.appendChild(songTitle);
+    container.appendChild(artistName);
+
+    resultsContainer.appendChild(container);
   });
 }
 
