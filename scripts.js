@@ -1,4 +1,4 @@
-document.getElementById('search-btn').addEventListener('click', function() {
+document.getElementById('search-btn').addEventListener('click', () => {
   document.getElementById('modal').classList.remove('hidden');
 });
 
@@ -6,7 +6,7 @@ document.getElementById('close-modal').addEventListener('click', function() {
   document.getElementById('modal').classList.add('hidden');
 });
 
-document.getElementById('search-submit').addEventListener('click', function() {
+document.getElementById('search-submit').addEventListener('click', () => {
   const query = document.getElementById('search-input').value;
   displayArtworks(query);
 });
@@ -53,20 +53,35 @@ function selectArtwork(src, song, artist, trackViewUrl) {
 
 /*const LAST_FM_API_KEY = '';*/
 
+
 async function searchApi(query) {
-  const itunesUrl = `https://itunes.apple.com/search?term=${query}&media=music&entity=song&limit=50`;
+  const encodedQuery = encodeURIComponent(query);
+  const itunesUrl = `https://itunes.apple.com/search?term=${encodedQuery}&media=music&entity=song&limit=30`;
 
   try {
-    const itunesResponse = await fetch(itunesUrl);
+    const itunesResponse = await fetch(itunesUrl, {
+      credentials: 'same-origin',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 10; Pixel 3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36',
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!itunesResponse.ok) {
+      throw new Error(`Request failed: ${itunesResponse.status} ${itunesResponse.statusText}`);
+    }
 
     return {
-      itunes: await itunesResponse.json()
+      itunes: await itunesResponse.json(),
     };
   } catch (error) {
-    console.error('API 요청 중 에러가 발생했습니다.', error);
+    console.error('API 요청 중 에러가 발생했습니다.', error.message);
     return null;
   }
 }
+
+
+
 const audioPlayer = new Audio();
 async function displayArtworks(query) {
   const data = await searchApi(query);
