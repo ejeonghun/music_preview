@@ -99,7 +99,8 @@ async function displayArtworks(query) {
     const container = document.createElement('div');
     container.classList.add('search-results');
     container.style.textAlign = 'center';
-    container.style.marginBottom = '10px';
+    container.style.padding = '10px 0px 10px 0px';
+    container.style.borderBottom = '1px black solid';
 
     const img = document.createElement('img');
     img.src = song.artworkUrl100.replace("100x100", "1400x1400");
